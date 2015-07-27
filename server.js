@@ -4,7 +4,7 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     server = app.listen(port);
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname + '/static'));
 
 app.get('/', function (req, res) {
