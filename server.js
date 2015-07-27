@@ -12,6 +12,8 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
+    var payload = req.body;
+    console.log(payload);
     //get webhook
     //check if user_name is on approved list
         //if not, respond with message to user
