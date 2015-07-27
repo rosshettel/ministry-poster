@@ -23,7 +23,9 @@ function isApprovedUser(payload) {
 }
 
 function isValidChannel(payload) {
-    return payload.channel !== 'privategroup' && payload.channel !== 'directmessage';
+    console.log('not private group', payload.channel !== 'privategroup');
+    console.log('not direct message', payload.channel !== 'directmessage');
+    return payload.channel !== 'privategroup' || payload.channel !== 'directmessage';
 }
 
 function postMinistryMessage(payload, callback) {
