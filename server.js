@@ -23,6 +23,7 @@ function isApprovedUser(payload) {
 }
 
 function isValidChannel(payload) {
+    console.log('channel', payload.channel);
     console.log('not private group', payload.channel !== 'privategroup');
     console.log('not direct message', payload.channel !== 'directmessage');
     return payload.channel !== 'privategroup' || payload.channel !== 'directmessage';
