@@ -36,6 +36,7 @@ function postMinistryMessage(payload, callback) {
         webhook = process.env.WEBHOOK;
     superagent.post(webhook, message, function (err, res) {
         if (err) {
+            console.log('received err', err);
             return callback(err);
         }
         if (res.status !== 200) {
@@ -63,7 +64,7 @@ app.post('/', function (req, res) {
                 res.send('Sorry - can\'t post in a private group or direct message.');
             }
         } else {
-            res.send('Sorry - you are not an approved Ministry member. :disaproval:');
+            res.send('Sorry - you are not an approved Ministry member.');
         }
     }
 });
