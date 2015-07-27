@@ -36,7 +36,7 @@ function postMinistryMessage(payload, callback) {
         webhook = process.env.WEBHOOK;
     superagent.post(webhook, message, function (err, res) {
         if (err) {
-            return callback(err.error.text);
+            return callback(res.error.text);
         }
         if (res.status !== 200) {
             console.log('Returned non 200 status code', res.text);
