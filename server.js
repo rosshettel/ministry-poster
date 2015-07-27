@@ -22,11 +22,15 @@ function isApprovedUser(payload) {
     return approvedUsers.indexOf(payload.user_name) !== -1;
 }
 
+function isValidChannel(payload) {
+    return payload.channel !== 'privategroup' && payload.channel !== 'directmessage';
+}
+
 function postMinistryMessage(payload, callback) {
     var message = {
             username: 'Ministry of Food and Drink',
             icon_url: 'http://ministry-poster.herokuapp.com/ministry_logo.jpg',
-            channel: payload.channel_name,
+            channel: '#' + payload.channel_name,
             text: payload.text
         },
         webhook = process.env.WEBHOOK;
@@ -35,7 +39,7 @@ function postMinistryMessage(payload, callback) {
             return callback(err);
         }
         if (res.status !== 200) {
-            console.log('Returned non 200 status code', res.body);
+            console.log('Returned non 200 status code', res.text);
             return callback('Received' + res.status + ' response');
         }
         callback();
@@ -47,13 +51,17 @@ app.post('/', function (req, res) {
 
     if (isValidToken(payload)) {
         if (isApprovedUser(payload)) {
-            postMinistryMessage(payload, function (err) {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.status(200).send('You are an approved Ministry member. :disaproval:');;
-                }
-            });
+            if (isValidChannel(payload)) {
+                postMinistryMessage(payload, function (err) {
+                    if (err) {
+                        res.status(500).send(err);
+                    } else {
+                        res.status(200).send('You are an approved Ministry member. :disaproval:');;
+                    }
+                });
+            } else {
+                res.send('Sorry - can\'t post in a private group or direct message.');
+            }
         } else {
             res.send('Sorry - you are not an approved Ministry member. :disaproval:');
         }
