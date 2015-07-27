@@ -36,8 +36,7 @@ function postMinistryMessage(payload, callback) {
         webhook = process.env.WEBHOOK;
     superagent.post(webhook, message, function (err, res) {
         if (err) {
-            console.log('received err', err);
-            return callback(err);
+            return callback(err.error.text);
         }
         if (res.status !== 200) {
             console.log('Returned non 200 status code', res.text);
@@ -57,7 +56,7 @@ app.post('/', function (req, res) {
                     if (err) {
                         res.status(500).send(err);
                     } else {
-                        res.status(200).send('You are an approved Ministry member. :disaproval:');;
+                        res.status(200).end();
                     }
                 });
             } else {
