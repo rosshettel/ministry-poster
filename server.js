@@ -11,9 +11,26 @@ app.get('/', function (req, res) {
     res.send(__dirname + '/static/index.html');
 });
 
+function isValidToken (payload) {
+    var token = process.env.TOKEN;
+    return payload.token === token;
+}
+
+function isApprovedUser (payload) {
+    var approvedUsers = ['ross', 'itsmerossw', 'libby', 'moose'];
+    return approvedUsers.indexOf(payload.user_name) !== -1;
+}
+
 app.post('/', function (req, res) {
     var payload = req.body;
-    console.log(payload);
+
+    if (isValidToken(payload)) {
+        if (isApprovedUser(payload)) {
+            res.send('You are an approved Ministry member.');
+        } else {
+            res.send('Sorry - you are not an approved Ministry member.');
+        }
+    }
     //get webhook
     //check if user_name is on approved list
         //if not, respond with message to user
