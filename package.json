@@ -1,0 +1,23 @@
+{
+  "name": "ministry-poster",
+  "version": "1.0.0",
+  "description": "Posts to Slack as The Ministry of Food and Drink with a slash command",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rosshettel/ministry-poster.git"
+  },
+  "author": "Ross Hettel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rosshettel/ministry-poster/issues"
+  },
+  "homepage": "https://github.com/rosshettel/ministry-poster",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1"
+  }
+}
